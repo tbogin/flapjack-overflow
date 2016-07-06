@@ -1,0 +1,4 @@
+<h1 class="heading"><%= @question.title %></h1>
+  <p>Q: <%= @question.body %></p>
+  <p id="q_show_user_name-date">by: <%= @question.user.username %>  |  posted on: <%= @question.created_at.strftime('%B %e, %Y') %></p>
+  </div>

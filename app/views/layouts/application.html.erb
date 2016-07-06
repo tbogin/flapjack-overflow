@@ -7,8 +7,35 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <header>
+
+    <div id="login-toolbar">
+
+
+      <% if logged_in? %>
+        <a class="home-links" href="/users/<%= current_user.id%>"> <%= current_user.username %> </a> |
+        <a class="home-links" href="/logout">Log out</a> |
+      <% else %>
+        <a class="home-links" href="/login">Log in</a> |
+        <a class="home-links" href="/users/new">Register</a> |
+      <% end %>
+      <a class="home-links" href="/">Home</a>
+      </div>
+  <div id="logo">
+    <a href="/questions"><%= image_tag "flapjack_overflow_logo.png", id: "logo-header-img" %></a>
+</div>
+
+
+  
+  </header>
+
+  <div id="content">
+  
+
 
 <%= yield %>
+
+</div>
 
 </body>
 </html>
