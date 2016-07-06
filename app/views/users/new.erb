@@ -1,0 +1,15 @@
+
+<h1 class="heading">Register with Flapjack Overflow</h1>
+
+<% if @errors %>
+  <% @errors.each do |error| %>
+  <div>The <%=  error %>.</div>
+  <% end %>
+<% end %>
+
+<form method="post" action="/users">
+  <div> <input type="text" name="username" placeholder="Name"></div>
+  <div> <input type="text" name="email" placeholder="Email"></div>
+  <div> <input type="password" name="password" placeholder="Password"></div>
+  <div> <input type="submit" value="Sign Up" class="button"></div>
+</form>

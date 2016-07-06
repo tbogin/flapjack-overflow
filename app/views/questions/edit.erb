@@ -1,0 +1,27 @@
+<% if @errors %>
+  <h3><span>Something went wrong:</span></h3>
+  <ul>
+    <% @errors.each do |error| %>
+      <li><p><%= error %></p></li>
+    <% end %>
+  </ul>
+<% end %>
+<div id="question_edit_container">
+<h1>Revise your thoughts on your flapjack post ...</h1>
+
+<form id="edit-question-form" method="post" action="/questions/<%= @q.id %>">
+  <input type="hidden" name="_method" value="put">
+  <div>
+    <input name="title" type="text" value="<%= @q.title %>">
+  </div>
+  <div>
+    <textarea name="body"><%= @q.body %></textarea>
+  </div>
+  <input class="button" type="submit" value="Edit">
+</form>
+
+<form method="post" action="/questions/<%= @q.id %>">
+  <input type="hidden" name="_method" value="delete">
+  <input class="button" type="submit" value="Delete">
+</form>
+</div>

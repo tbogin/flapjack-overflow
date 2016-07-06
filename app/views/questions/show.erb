@@ -1,0 +1,101 @@
+<%if @errors%>
+  <ul>
+    <%@errors.each do |error| %>
+    <li><%error.full_message%></li>
+    <%end%>
+  </ul>
+<%end%>
+
+
+<h1 class="heading"><%= @q.title %></h1>
+
+<section id="vote-container">
+  <form method="post" action='/questions/<%= @q.id %>/upvote' class="new-up-vote">
+    <button id="up-vote-button" type="submit" name="submit_param" value="submit_value"></button>
+  <form method="post" action='/questions/<%= @q.id %>/upvote' class="new-question-vote">
+ </form>
+  <p class="vote-tally"><%= @q.votes.length %></p>
+  <form method="post" action='/questions/<%= @q.id %>/downvote' class="new-down-vote">
+    <button id="down-vote-button" type="submit" name="submit_param" value="submit_value"></button>
+  </form>
+</section>
+
+
+<p>Q: <%= @q.body %></p>
+<p id="q_show_user_name-date">by: <%= @q.user.username %>  |  posted on: <%= @q.created_at.strftime('%B %e, %Y') %></p>
+
+
+
+    <% @q.tags.each do |tag| %>
+      <span class="single_tag"><a class="tag_link" href='/tags/<%= tag.id %>'><%= tag.name %></a></span>
+
+    <% end %>
+
+<h2 class="h2-sub-heading">Answers</h2>
+
+  <% @q.answers.each do |answer| %>
+  <div class="answers_container">
+      A: <%= answer.body %> 
+
+    <div id="answer_username">by: <%= answer.user.username %> | <%= answer.created_at.strftime("%m-%d-%Y") %></div>
+
+  <% if answer.user_id ==  session[:user_id] %>
+    <div class="edit_answer_section">
+      <a class="edit_answer_link button" href="/questions/<%=@q.id%>/answers/<%= answer.id%>/edit">Edit this post</a>
+    </div>  
+
+    <form id="delete_answer_form" method="post" action="/questions/<%= @q.id %>/answers/<%= answer.id %>">
+      <input id="answer_delete" type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete answer" class="button">
+    </form>
+
+  <% end %>
+
+    <div class="edit-form-container">
+    </div>
+
+
+</div>
+
+  <% end %>
+
+
+
+
+
+
+
+
+
+  <% if logged_in? %>
+    <div id="new_answer">
+      <a class="button" id="submit_answer_link" href="/questions/<%= @q.id %>/answers/new">Submit an Answer</a>
+    </div>
+  <% end %>
+
+
+<div>
+  <% if session['user_id'] == @q.user_id %>
+    <a class="button" href="/questions/<%= @q.id %>/edit">Edit your question</a>
+  <% end %>
+</div>
+
+
+
+
+
+<% if logged_in? %>
+  <p><a id="comment-link" href="/questions/<%= @q.id %>/comments/new">Comment on this question</a></p>
+<% end %>
+
+
+<h3 class="h3-sub-heading">Comments</h2>
+<% @comments.each do |comment| %>
+  <article class="comment_block">• "<%= comment.body %>" -<%= comment.user.username %></article>
+<% end %>
+
+
+
+
+
+
