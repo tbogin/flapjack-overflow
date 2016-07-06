@@ -5,24 +5,24 @@ class AnswersController < ApplicationController
 
   def new
     @question = Question.find_by(id: params[:question_id])
-    erb :"answers/_answer-form", layout: false
+    render "answers/_answer-form", layout: false
   end
 
   def create
     @question = Question.find_by(id: params[:question_id])
     @answer = @question.answers.build(body: params[:body], user_id: session['user_id'])
     if request.xhr? && @answer.save
-      erb :"answers/_single-answer", layout: false, locals: {answer: @answer}
+      render "answers/_single-answer", layout: false, locals: {answer: @answer}
     else
       @errors = @question.errors.full_messages
-      erb :"answers/new"
+      render "answers/new"
     end
   end
 
   def edit
      @question = Question.find_by(id: params[:question_id])
     @answer = Answer.find_by(id: params[:id])
-    erb :'answers/_edit_form', layout: false
+    render 'answers/_edit_form', layout: false
   end
 
   def update

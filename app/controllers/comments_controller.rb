@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   def new_question_comment 
     @question = Question.find_by(id: params[:id])
-    erb :'comments/question-comments'
+    render 'comments/question-comments'
   end
 
 
@@ -13,13 +13,13 @@ class CommentsController < ApplicationController
       redirect "/questions/#{@question.id}"
     else
       @errors = @comment.errors.full_messages
-      erb :'comments/question-comments'
+      render 'comments/question-comments'
     end
   end
 
   def new_answer_comment 
     @answer = Answer.find_by(id: params[:id])
-    erb :'comments/answer-comments'
+    render 'comments/answer-comments'
   end
 
   def create_answer_comment
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
       redirect "/questions/#{@question.id}"
     else
       @errors = @comment.errors.full_messages
-      erb :'comments/question-comments'
+      render 'comments/question-comments'
     end
   end
 

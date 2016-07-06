@@ -2,11 +2,11 @@ class QuestionsController < ApplicationController
 
   def index
     @qs = Question.all.order('created_at desc')
-    erb :'questions/index'
+    render 'questions/index'
   end
 
   def new
-    erb :'questions/new', layout: false
+    render 'questions/new', layout: false
   end
 
 
@@ -18,10 +18,10 @@ class QuestionsController < ApplicationController
         new_tag = Tag.find_or_create_by(name: tag)
         QuestionTag.find_or_create_by(question_id: @q.id, tag_id: new_tag.id)
       end
-      erb :'questions/_single', layout: false, locals: {q: @q}
+      render 'questions/_single', layout: false, locals: {q: @q}
     else
       @errors = @q.errors.full_messages
-      erb :'questions/new', layout: false
+      render 'questions/new', layout: false
     end
   end
 
@@ -32,15 +32,15 @@ class QuestionsController < ApplicationController
     @comments = @q.comments.limit(3)
     @q.views += 1
     @q.save
-    erb :"questions/show"
+    render "questions/show"
   end
 
   def edit
     @q = Question.find_by(id: params[:id])
     if session["user_id"] == @q.user_id
-      erb :'questions/edit'
+      render 'questions/edit'
     else
-      erb :'404'
+      render '404'
     end
   end
 
@@ -51,16 +51,16 @@ class QuestionsController < ApplicationController
       @q.assign_attributes(title: params['title'], body: params['body'])
       if @q.save
         if request.xhr?
-          erb :"questions/_edited-question", layout: false, locals: {q: @q}
+          render "questions/_edited-question", layout: false, locals: {q: @q}
         else
           redirect "questions/#{@q.id}"
         end
       else
         @errors = @q.errors.full_messages
-        erb :'questions/edit'
+        render 'questions/edit'
       end
     else
-      erb :'404'
+      render '404'
     end
   end
 
@@ -71,7 +71,7 @@ class QuestionsController < ApplicationController
       @q.destroy
       redirect '/questions'
     else
-      erb :'404'
+      render '404'
     end
   end
 

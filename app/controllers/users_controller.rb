@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def new
-    erb :"users/new"
+    render "users/new"
   end
 
   def create
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect "/"
     else
       @errors = @user.errors.full_messages
-      erb :"users/new"
+      render "users/new"
     end
   end
 
@@ -19,12 +19,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @questions = @user.questions.order("created_at desc")
-    erb :"users/show"
+    render "users/show"
   end
 
   def edit
     @user = User.find_by(id: params[:id])
-    erb :"users/edit"
+    render "users/edit"
   end
 
   def update
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect "/users/#{@user.id}"
     else 
-      erb :"users/edit"
+      render "users/edit"
     end
   end
 

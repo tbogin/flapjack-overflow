@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       redirect_to '/'
     else
       @errors = ["Holy Flapjack! We don't have that email and password combination in our system. Give it another whirl :0)"]
-        erb :"sessions/new"
+        render "sessions/new"
     end 
   end
 

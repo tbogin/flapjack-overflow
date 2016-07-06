@@ -42,11 +42,12 @@ ActiveRecord::Schema.define(version: 20160706175839) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string   "title",      null: false
+    t.string   "title",                  null: false
     t.text     "body"
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                null: false
+    t.integer  "views",      default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "tags", force: :cascade do |t|
