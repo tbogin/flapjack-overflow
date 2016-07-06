@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
   end
 
   def edit
-     @question = Question.find_by(id: params[:question_id])
+    @question = Question.find_by(id: params[:question_id])
     @answer = Answer.find_by(id: params[:id])
     render 'answers/_edit_form', layout: false
   end
